@@ -28,9 +28,13 @@ export default function Login() {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
 
+    const redirectTo = process.env.NEXT_PUBLIC_SITE_URL
+      ? `${process.env.NEXT_PUBLIC_SITE_URL}/`
+      : `${window.location.origin}/`
+
     const { error: authError } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${window.location.origin}/` },
+      options: { emailRedirectTo: redirectTo },
     })
 
     if (authError) {
